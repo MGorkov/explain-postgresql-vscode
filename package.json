@@ -1,0 +1,203 @@
+{
+  "name": "explain-postgresql",
+  "displayName": "Explain PostgreSQL",
+  "description": "Analyzes EXPLAIN plan from PostgreSQL and related (Greenplum, Citus, TimescaleDB and Amazon RedShift). Shows plan and node details and visualizations with piechart, flowchart and tilemap, also gives smart recommendations to improve query.",
+  "version": "1.0.5",
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "author": "Maksim Gorkov <me.gorkov@tensor.ru",
+  "publisher": "TensorCompanyLtd",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MGorkov/explain-postgresql-vscode.git"
+  },
+  "categories": [
+    "Formatters",
+    "Visualization",
+    "Other"
+  ],
+  "icon": "images/logo.png",
+  "license": "MIT",
+  "homepage": "https://explain.tensor.ru",
+  "activationEvents": [
+    "onLanguage:sql"
+  ],
+  "main": "./dist/extension.js",
+  "types": "./src/index.d.ts",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Explain PostgreSQL",
+      "properties": {
+        "explain-postgresql.url": {
+          "scope": "resource",
+          "type": "string",
+          "default": "https://explain.tensor.ru",
+          "description": "API site",
+          "order": 1
+        },
+        "explain-postgresql.explain": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Explain settings",
+          "order": 2,
+          "properties": {
+            "ANALYZE": {
+              "type": "boolean"
+            },
+            "VERBOSE": {
+              "type": "boolean"
+            },
+            "COSTS": {
+              "type": "boolean"
+            },
+            "SETTINGS": {
+              "type": "boolean"
+            },
+            "GENERIC_PLAN": {
+              "type": "boolean"
+            },
+            "BUFFERS": {
+              "type": "boolean"
+            },
+            "WAL": {
+              "type": "boolean"
+            },
+            "TIMING": {
+              "type": "boolean"
+            },
+            "SUMMARY": {
+              "type": "boolean"
+            }
+          },
+          "default": {
+            "ANALYZE": true,
+            "VERBOSE": false,
+            "COSTS": false,
+            "SETTINGS": false,
+            "GENERIC_PLAN": false,
+            "BUFFERS": true,
+            "WAL": false,
+            "TIMING": true,
+            "SUMMARY": false
+          }
+        },
+        "explain-postgresql.location": {
+          "order": 3,
+          "type": [
+            "string"
+          ],
+          "default": "current",
+          "enum": [
+            "next",
+            "current",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "enumDescriptions": [
+            "New group if nothing open. Second group if currently active text editor is in first group. Otherwise third group.",
+            "Current active group.",
+            "First group.",
+            "Second group.",
+            "Third group.",
+            "Fourth group.",
+            "Fifth group.",
+            "Sixth group.",
+            "Seventh group.",
+            "Eighth group.",
+            "Ninth group."
+          ],
+          "markdownDescription": "Define which edit group the explain analyze tab should appear in."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "explain-postgresql.formatsql",
+        "title": "Format SQL",
+        "icon": "icons/EP.png"
+      },
+      {
+        "command": "explain-postgresql.explainanalyze",
+        "title": "Explain Analyze",
+        "icon": "icons/EP.png"
+      },
+      {
+        "command": "explain-postgresql.explainsite",
+        "title": "Explain PostgreSQL",
+        "icon": "icons/EP.png"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "explain-postgresql.formatsql",
+        "key": "Alt+D"
+      },
+      {
+        "command": "explain-postgresql.explainanalyze",
+        "key": "Alt+A"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == sql",
+          "command": "explain-postgresql.explainsite",
+          "group": "navigation",
+          "icon": "./icons/EP.png"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceLangId == sql",
+          "command": "explain-postgresql.formatsql",
+          "group": "1_modification",
+          "icon": "./icons/EP.png"
+        },
+        {
+          "when": "resourceLangId == sql",
+          "command": "explain-postgresql.explainanalyze",
+          "group": "1_modification",
+          "icon": "./icons/EP.png"
+        }
+      ]
+    }
+  },
+  "extensionDependencies": [
+    "mtxr.sqltools"
+  ],
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.54.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "vsce": "^2.15.0",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
