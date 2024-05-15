@@ -2,7 +2,7 @@
   "name": "explain-postgresql",
   "displayName": "Explain PostgreSQL",
   "description": "Analyzes EXPLAIN plan from PostgreSQL and related (Greenplum, Citus, TimescaleDB and Amazon RedShift). Shows plan and node details and visualizations with piechart, flowchart and tilemap, also gives smart recommendations to improve query.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "engines": {
     "vscode": "^1.54.0"
   },

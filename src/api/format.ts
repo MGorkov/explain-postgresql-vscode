@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as https from 'node:https';
+import Context from '../context';
 import {BeatifierResponse} from "../index";
 
 const beautifier_url = "/beautifier-api";
@@ -13,6 +14,7 @@ export default function beautifier(query: string):Thenable<string> {
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': Buffer.byteLength(postData),
+				'User-Agent': `VSCode/${vscode.version} ${Context.extension.packageJSON.version}`,
 			},
 			timeout: 30000,
 		};

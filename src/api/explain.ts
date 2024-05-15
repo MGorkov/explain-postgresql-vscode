@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as https from 'node:https';
+import Context from '../context';
 
 const explain_url = "/explain";
 
@@ -12,6 +13,7 @@ export default function explain(plan: string, query: string):Thenable<string> {
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': Buffer.byteLength(postData),
+				'User-Agent': `VSCode/${vscode.version} ${Context.extension.packageJSON.version}`,
 			},
 			timeout: 30000,
 		};

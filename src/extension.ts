@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 
  	vscode.languages.registerCodeActionsProvider('sql', new Actions(), {
 		providedCodeActionKinds: Actions.providedCodeActionKinds
-	})
+	});
 
 	vscode.commands.registerCommand(FORMATSQL_COMMAND, formatCommand);
 	vscode.commands.registerCommand(EXPLAINANALYZE_COMMAND, explainCommand);
